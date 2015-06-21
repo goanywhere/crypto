@@ -1,0 +1,10 @@
+language: go
+
+install:
+  - go get github.com/Sirupsen/logrus
+  - go get github.com/smartystreets/goconvey
+  - go get golang.org/x/crypto/bcrypt
+
+go:
+  - 1.4
+  - tip
