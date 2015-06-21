@@ -24,9 +24,9 @@
 package crypto
 
 import (
+	"os"
 	"testing"
 
-	"github.com/goanywhere/x/env"
 	. "github.com/smartystreets/goconvey/convey"
 )
 
@@ -38,7 +38,7 @@ func BenchmarkRandom(b *testing.B) {
 
 func TestEncrypt(t *testing.T) {
 	src := "I'mAPlainSecret"
-	env.Set("SECRET_KEY", "secretkey@example.com")
+	os.Setenv("SECRET_KEY", "secretkey@example.com")
 	Convey("auth.Encrypt Test", t, func() {
 		secret := Encrypt(src)
 		So(len(secret), ShouldEqual, 60)
@@ -63,7 +63,7 @@ func TestVerify(t *testing.T) {
 
 func BenchmarkMixin(b *testing.B) {
 	src := "I'mAPlainSecret"
-	env.Set("SECRET_KEY", "secretkey@example.com")
+	os.Setenv("SECRET_KEY", "secretkey@example.com")
 	for index := 0; index < b.N; index++ {
 		mixin(src)
 	}
@@ -71,7 +71,7 @@ func BenchmarkMixin(b *testing.B) {
 
 func BenchmarkEncrypt(b *testing.B) {
 	src := "I'mAPlainSecret"
-	env.Set("SECRET_KEY", "secretkey@example.com")
+	os.Setenv("SECRET_KEY", "secretkey@example.com")
 	for index := 0; index < b.N; index++ {
 		Encrypt(src)
 	}
@@ -79,7 +79,7 @@ func BenchmarkEncrypt(b *testing.B) {
 
 func BenchmarkVerify(b *testing.B) {
 	src := "I'mAPlainSecret"
-	env.Set("SECRET_KEY", "secretkey@example.com")
+	os.Setenv("SECRET_KEY", "secretkey@example.com")
 	secret := Encrypt(src)
 	for index := 0; index < b.N; index++ {
 		Verify(src, secret)
